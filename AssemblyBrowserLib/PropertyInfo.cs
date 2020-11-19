@@ -4,13 +4,13 @@ using System.Text;
 
 namespace AssemblyBrowserLib
 {
-    class PropertyInfo
+    public class PropertyInfo
     {
         public string Name { get; private set; }
 
-        public PropertyInfo(string name)
+        public PropertyInfo(System.Reflection.PropertyInfo property)
         {
-            Name = name;
+            Name = $"Property : {Namer.GetName(property.PropertyType)} {property.Name}";
         }
     }
 }

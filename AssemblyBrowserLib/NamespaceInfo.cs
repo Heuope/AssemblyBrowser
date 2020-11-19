@@ -4,15 +4,15 @@ using System.Text;
 
 namespace AssemblyBrowserLib
 {
-    class NamespaceInfo
+    public class NamespaceInfo
     {
         public string Name { get; private set; }
 
         public List<TypeInfo> typeInfos { get; } = new List<TypeInfo>();
 
-        public NamespaceInfo(System.Reflection.Assembly assembly)
+        public NamespaceInfo(string name)
         {
-            Name = $"Namespace : {assembly.FullName}";
+            Name = $"Namespace : {name}";
         }
     }
 }

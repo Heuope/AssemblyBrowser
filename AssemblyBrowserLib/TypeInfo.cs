@@ -4,18 +4,18 @@ using System.Text;
 
 namespace AssemblyBrowserLib
 {
-    class TypeInfo
+    public class TypeInfo
     {
         public string Name { get; private set; }
 
         public List<MethodInfo> MethodsInfos { get; } = new List<MethodInfo>();
         public List<PropertyInfo> PropertyInfos { get; } = new List<PropertyInfo>();
         public List<FieldInfo> FieldsInfos { get; } = new List<FieldInfo>();
-        public List<ConstructorsInfos> ConstructorsInfos { get; } = new List<ConstructorsInfos>();
+        public List<ConstructorsInfo> ConstructorsInfos { get; } = new List<ConstructorsInfo>();
 
-        public TypeInfo(System.Reflection.TypeInfo typeInfo)
+        public TypeInfo(Type type)
         {
-            Name = typeInfo.Name;
+            Name = type.Name;
         }
     }
 }

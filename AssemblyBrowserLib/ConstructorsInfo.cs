@@ -4,15 +4,15 @@ using System.Text;
 
 namespace AssemblyBrowserLib
 {
-    public class MethodInfo
+    public class ConstructorsInfo
     {
         public string Name { get; private set; }
 
-        public MethodInfo(System.Reflection.MethodInfo method)
+        public ConstructorsInfo(System.Reflection.ConstructorInfo constructor)
         {
-            Name = $"Method : {Namer.GetName(method.ReturnType)} {method.Name} (";
+            Name = $"Constructor : {Namer.GetName(constructor.DeclaringType)} (";
 
-            var parametrs = method.GetParameters();
+            var parametrs = constructor.GetParameters();
 
             List<string> temp = new List<string>();
 

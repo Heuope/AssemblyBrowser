@@ -4,13 +4,13 @@ using System.Text;
 
 namespace AssemblyBrowserLib
 {
-    class FieldInfo
+    public class FieldInfo
     {
         public string Name { get; private set; }
 
-        public FieldInfo(System.Reflection.FieldInfo fieldInfo)
+        public FieldInfo(System.Reflection.FieldInfo field)
         {
-            Name = $"Field : {fieldInfo.FieldType.ToString()}";
+            Name = $"Field : {Namer.GetName(field.FieldType)} {field.Name}";
         }
     }
 }
