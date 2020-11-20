@@ -10,55 +10,62 @@ namespace AssemblyBrowserLib
     {
         public List<NamespaceInfo> GetNamespaceInfos(string path)
         {
-            var asm = Assembly.LoadFile(path);
-
             var namespaceNames = new Dictionary<string, NamespaceInfo>();
 
-            foreach (var type in asm.GetTypes())
+            try
             {
-                if (Attribute.GetCustomAttribute(type, typeof(CompilerGeneratedAttribute)) == null)
+                var asm = Assembly.LoadFile(path);
+
+                foreach (var type in asm.GetTypes())
                 {
-                    var typeInfo = new TypeInfo(type);
-
-                    if (Attribute.GetCustomAttribute(type, typeof(CompilerGeneratedAttribute)) == null && !namespaceNames.ContainsKey(type.Namespace))
+                    if (Attribute.GetCustomAttribute(type, typeof(CompilerGeneratedAttribute)) == null)
                     {
-                        namespaceNames.Add(type.Namespace, new NamespaceInfo(type.Namespace));
-                    }
+                        var typeInfo = new TypeInfo(type);
 
-                    foreach (var method in type.GetMethods())
-                    {
-                        if (Attribute.GetCustomAttribute(method, typeof(CompilerGeneratedAttribute)) == null)
+                        if (Attribute.GetCustomAttribute(type, typeof(CompilerGeneratedAttribute)) == null && !namespaceNames.ContainsKey(type.Namespace))
                         {
-                            typeInfo.MethodsInfos.Add(new MethodInfo(method));
+                            namespaceNames.Add(type.Namespace, new NamespaceInfo(type.Namespace));
                         }
-                    }
 
-                    foreach (var field in type.GetFields())
-                    {
-                        if (Attribute.GetCustomAttribute(field, typeof(CompilerGeneratedAttribute)) == null)
+                        foreach (var method in type.GetMethods())
                         {
-                            typeInfo.FieldsInfos.Add(new FieldInfo(field));
+                            if (Attribute.GetCustomAttribute(method, typeof(CompilerGeneratedAttribute)) == null)
+                            {
+                                typeInfo.MethodsInfos.Add(new MethodInfo(method));
+                            }
                         }
-                    }
 
-                    foreach (var property in type.GetProperties())
-                    {
-                        if (Attribute.GetCustomAttribute(property, typeof(CompilerGeneratedAttribute)) == null)
+                        foreach (var field in type.GetFields())
                         {
-                            typeInfo.PropertyInfos.Add(new PropertyInfo(property));
+                            if (Attribute.GetCustomAttribute(field, typeof(CompilerGeneratedAttribute)) == null)
+                            {
+                                typeInfo.FieldsInfos.Add(new FieldInfo(field));
+                            }
                         }
-                    }
 
-                    foreach (var constructor in type.GetConstructors())
-                    {
-                        if (Attribute.GetCustomAttribute(constructor, typeof(CompilerGeneratedAttribute)) == null)
+                        foreach (var property in type.GetProperties())
                         {
-                            typeInfo.ConstructorsInfos.Add(new ConstructorsInfo(constructor));
+                            if (Attribute.GetCustomAttribute(property, typeof(CompilerGeneratedAttribute)) == null)
+                            {
+                                typeInfo.PropertyInfos.Add(new PropertyInfo(property));
+                            }
                         }
-                    }
 
-                    namespaceNames[type.Namespace].typeInfos.Add(typeInfo);
+                        foreach (var constructor in type.GetConstructors())
+                        {
+                            if (Attribute.GetCustomAttribute(constructor, typeof(CompilerGeneratedAttribute)) == null)
+                            {
+                                typeInfo.ConstructorsInfos.Add(new ConstructorsInfo(constructor));
+                            }
+                        }
+
+                        namespaceNames[type.Namespace].typeInfos.Add(typeInfo);
+                    }
                 }
+            }
+            catch (Exception)
+            {
+
             }
 
             return namespaceNames.Select(x => x.Value).ToList();

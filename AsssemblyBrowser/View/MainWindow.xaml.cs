@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
+using AsssemblyBrowser.ViewModel;
 
 namespace AsssemblyBrowser
 {
@@ -10,6 +12,10 @@ namespace AsssemblyBrowser
         public MainWindow()
         {
             InitializeComponent();
+
+            //var data = new DataViewModel(@"C:\Users\konst_9hggwum\OneDrive\Desktop\AssemblyBrowser\TestClass\bin\Debug\netcoreapp3.1\TestClass.dll");
+
+            //treeView.ItemsSource = data.NamespaceInfos;
         }
     }
 }

@@ -10,9 +10,4 @@
     <ProjectReference Include="..\AssemblyBrowserLib\AssemblyBrowserLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
-
 </Project>

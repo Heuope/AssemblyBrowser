@@ -3,10 +3,45 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AsssemblyBrowser"
+        xmlns:local="clr-namespace:AsssemblyBrowser.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        Height="450"
+        Width="800">
+    <Window.DataContext>
+        <local:DataViewModel />
+    </Window.DataContext>
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        
+        <TreeView x:Name="treeView1"
+                  ItemsSource="{Binding NamespaceInfos}"
+                  Grid.Row="1">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding TypeInfoModels}"
+                                          DataType="NamespaceInfosModel">
+                    <TextBlock Text="{Binding Name}" />
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Describe}"
+                                                  DataType="TypeInfoModel">
+                            <TextBlock Text="{Binding Name}" />
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <HierarchicalDataTemplate>
+                                    <TextBlock Text="{Binding}" />
+                                </HierarchicalDataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <Button Command="{Binding OpenCommand}"
+                Grid.Row="0">Open</Button>
+        <TextBox Grid.Row="2"
+                 Text="{Binding Path}" />
     </Grid>
 </Window>

@@ -18,7 +18,7 @@ namespace AssemblyBrowserLib
 
             foreach (var parameter in parametrs)
             {
-                temp.Add($"{Namer.GetName(parameter.ParameterType)} {Namer.GetName(parameter.ParameterType)} ");
+                temp.Add($"{Namer.GetName(parameter.ParameterType)} {parameter.Name} ");
             }
 
             Name += $"{string.Join(", ", temp.ToArray())})";
